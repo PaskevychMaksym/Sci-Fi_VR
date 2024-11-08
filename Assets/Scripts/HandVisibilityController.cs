@@ -18,7 +18,7 @@ public class HandVisibilityController : MonoBehaviour
     {
         _leftHandInteractor.selectEntered.AddListener(OnGrab);
         _leftHandInteractor.selectExited.AddListener(OnRelease);
-        
+
         _rightHandInteractor.selectEntered.AddListener(OnGrab);
         _rightHandInteractor.selectExited.AddListener(OnRelease);
     }
@@ -32,28 +32,30 @@ public class HandVisibilityController : MonoBehaviour
 
         _currentGrabbedObject = interactable;
 
+        // Скрыть модель руки только если пульт захвачен
         if ((XRBaseInteractor)args.interactorObject == _leftHandInteractor)
         {
-            _leftHandModel.gameObject.SetActive(false);
-        }else if ((XRBaseInteractor)args.interactorObject == _rightHandInteractor)
+            _leftHandModel.gameObject.SetActive(false); // Скрыть левую руку
+        } else if ((XRBaseInteractor)args.interactorObject == _rightHandInteractor)
         {
-            _rightHandModel.gameObject.SetActive(false);
+            _rightHandModel.gameObject.SetActive(false); // Скрыть правую руку 
         }
     }
 
     private void OnRelease (SelectExitEventArgs args)
     {
-        if ((XRGrabInteractable)args.interactableObject != _currentGrabbedObject)
+        if (_currentGrabbedObject == null || (XRGrabInteractable)args.interactableObject != _currentGrabbedObject)
         {
             return;
         }
 
+        // Вернуть модель руки, когда объект отпущен
         if ((XRBaseInteractor)args.interactorObject == _leftHandInteractor)
         {
-            _leftHandModel.gameObject.SetActive(true);
-        }else if ((XRBaseInteractor)args.interactorObject == _rightHandInteractor)
+            _leftHandModel.gameObject.SetActive(true); // Показать левую руку
+        } else if ((XRBaseInteractor)args.interactorObject == _rightHandInteractor)
         {
-            _rightHandModel.gameObject.SetActive(true);
+            _rightHandModel.gameObject.SetActive(true); // Показать правую руку
         }
 
         _currentGrabbedObject = null;
