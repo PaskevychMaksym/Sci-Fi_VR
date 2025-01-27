@@ -1,12 +1,21 @@
 using UnityEngine.Audio;
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 //Credit to Brackeys youtube tutorial on Audio managers, as the majority of this code and learning how to use it was made by him.
 [System.Serializable]
 public class Sound
 {
-    public string name;
+    public enum AudioObject
+    {
+        None,
+        Door,
+        SpaceShipBackground,
+        Pistol,
+    }
+    
+    public AudioObject audioObject;
     public AudioClip clip;
     [Range(0, 1)]
     public float volume = 1;
@@ -51,9 +60,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string name)
+    public void Play(Sound.AudioObject audioObject)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(sounds, sound => sound.audioObject == audioObject);
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found");
@@ -63,9 +72,9 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
-    public void Stop(string name)
+    public void Stop(Sound.AudioObject audioObject)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(sounds, sound => sound.audioObject == audioObject);
 
         s.source.Stop();
     }

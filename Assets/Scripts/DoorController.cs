@@ -16,5 +16,6 @@ public class DoorController : BaseInteractable
   {
     _isOpen = !_isOpen;
     _animator.SetBool(IS_OPEN, _isOpen);
+    AudioManager.instance.Play(Sound.AudioObject.Door);
   }
 }

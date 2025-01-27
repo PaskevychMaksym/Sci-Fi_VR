@@ -53,12 +53,14 @@ public class MeteorSplitter : MonoBehaviour
     private void StartShoot(ActivateEventArgs args)
     {
         _particleSystem.Play();
+        AudioManager.instance.Play(Sound.AudioObject.Pistol);
         _isRayActive = true;
     }
 
     private void StopShoot(DeactivateEventArgs args)
     {
         _particleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        AudioManager.instance.Stop(Sound.AudioObject.Pistol);
         _isRayActive = false;
         ResetBreakable();
     }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayAudioFromAudioManager : MonoBehaviour
 {
-    public string target;
+    public Sound.AudioObject target;
 
     public void Play()
     {
         AudioManager.instance.Play(target);
     }
 
-    public void Play(string audioName)
+    public void Play(Sound.AudioObject audioName)
     {
         AudioManager.instance.Play(audioName);
     }
